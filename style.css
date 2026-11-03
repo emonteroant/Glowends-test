@@ -355,9 +355,9 @@ button {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=90&auto=format&fit=crop');
+  background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1920&q=90&auto=format&fit=crop');
   background-size: cover;
-  background-position: center 30%;
+  background-position: center 35%;
   transform: scale(1.05);
   transition: transform 8s ease;
 }
@@ -365,15 +365,16 @@ button {
   transform: scale(1);
 }
 
-/* Clean, crisp vignette overlay: NO MUDDY GREY FOG */
+/* Luminous romantic overlay: Keeps the photo bright, warm and light while ensuring crystal-clear text */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(20, 15, 14, 0.45) 0%,
-    rgba(20, 15, 14, 0.15) 35%,
-    rgba(20, 15, 14, 0.65) 100%
+    rgba(22, 16, 15, 0.32) 0%,
+    rgba(22, 16, 15, 0.10) 30%,
+    rgba(22, 16, 15, 0.18) 60%,
+    rgba(22, 16, 15, 0.48) 100%
   );
 }
 
@@ -381,8 +382,10 @@ button {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   max-width: 940px;
+  background: radial-gradient(ellipse at center, rgba(18, 14, 13, 0.38) 0%, rgba(18, 14, 13, 0.14) 55%, transparent 75%);
+  border-radius: 20px;
 }
 
 .hero-logo {
