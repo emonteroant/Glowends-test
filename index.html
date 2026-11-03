@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=4" />
 </head>
 <body>
 
@@ -557,10 +557,25 @@
               <label class="form-label" for="message">Contadnos vuestra historia *</label>
               <textarea class="form-textarea" id="message" name="message" placeholder="¿Cómo imagináis vuestro día ideal? ¿Cuántos invitados? ¿Qué ambiente soñáis? ✨" required aria-required="true"></textarea>
             </div>
+            <div class="form-group form-checkbox-group">
+              <label class="form-checkbox-label">
+                <input type="checkbox" id="privacy-consent" name="privacy_consent" required aria-required="true" />
+                <span>He leído y acepto la <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Política de Privacidad</a> *</span>
+              </label>
+            </div>
             <button type="submit" class="form-submit" aria-label="Enviar formulario de contacto">
               <span>Enviar mensaje ✨</span>
             </button>
-            <p class="form-privacy">Al enviar aceptas nuestra <a href="#">política de privacidad</a>.</p>
+            <div class="form-gdpr-info">
+              <p>Información básica sobre protección de datos (RGPD):</p>
+              <ul>
+                <li><strong>Responsable:</strong> Glowends Events.</li>
+                <li><strong>Finalidad:</strong> Atender y dar respuesta a vuestra solicitud de información y presupuesto para vuestra boda o evento.</li>
+                <li><strong>Legitimación:</strong> Vuestro consentimiento expreso al enviar este formulario.</li>
+                <li><strong>Destinatarios:</strong> No se ceden datos a terceros salvo obligación legal.</li>
+                <li><strong>Derechos:</strong> Podéis acceder, rectificar o suprimir vuestros datos escribiéndonos a <a href="mailto:infoglowends@gmail.com">infoglowends@gmail.com</a>.</li>
+              </ul>
+            </div>
           </form>
         </div>
 
@@ -691,9 +706,9 @@
       <div class="footer-bottom">
         <p class="footer-copy">&copy; 2025 Glowends Events. Todos los derechos reservados.</p>
         <nav class="footer-legal" aria-label="Páginas legales">
-          <a href="#">Política de privacidad</a>
-          <a href="#">Aviso legal</a>
-          <a href="#">Cookies</a>
+          <a href="javascript:void(0)" onclick="openLegalModal('privacy')">Política de privacidad</a>
+          <a href="javascript:void(0)" onclick="openLegalModal('notice')">Aviso legal</a>
+          <a href="javascript:void(0)" onclick="openLegalModal('cookies')">Cookies</a>
         </nav>
       </div>
     </div>
@@ -709,11 +724,205 @@
   <div class="cookie-banner" id="cookieBanner" role="complementary" aria-label="Política de cookies">
     <p class="cookie-text">
       Utilizamos cookies propias y de terceros para mejorar tu experiencia.
-      <a href="#">Más información</a>
+      <a href="javascript:void(0)" onclick="openLegalModal('cookies')">Más información</a>
     </p>
     <div class="cookie-btns">
       <button class="cookie-accept" onclick="acceptCookies()">Aceptar</button>
       <button class="cookie-decline" onclick="declineCookies()">Rechazar</button>
+    </div>
+  </div>
+
+  <!-- ==================== MODAL LEGAL (RGPD, AVISO LEGAL Y COOKIES) ==================== -->
+  <div class="legal-modal" id="legalModal" role="dialog" aria-modal="true" aria-labelledby="legalModalTitle">
+    <div class="legal-modal-card">
+      <div class="legal-modal-header">
+        <h2 class="legal-modal-title" id="legalModalTitle">Información Legal</h2>
+        <button class="legal-modal-close" onclick="closeLegalModal()" aria-label="Cerrar modal legal">&times;</button>
+      </div>
+
+      <div class="legal-modal-tabs" role="tablist">
+        <button class="legal-tab-btn active" id="tabBtn-privacy" onclick="switchLegalTab('privacy')" role="tab" aria-selected="true" aria-controls="tabContent-privacy">
+          Política de Privacidad
+        </button>
+        <button class="legal-tab-btn" id="tabBtn-notice" onclick="switchLegalTab('notice')" role="tab" aria-selected="false" aria-controls="tabContent-notice">
+          Aviso Legal
+        </button>
+        <button class="legal-tab-btn" id="tabBtn-cookies" onclick="switchLegalTab('cookies')" role="tab" aria-selected="false" aria-controls="tabContent-cookies">
+          Política de Cookies
+        </button>
+      </div>
+
+      <div class="legal-modal-body">
+
+        <!-- TAB 1: POLÍTICA DE PRIVACIDAD -->
+        <article class="legal-tab-content active" id="tabContent-privacy" role="tabpanel" aria-labelledby="tabBtn-privacy">
+          <span class="legal-badge">Cumplimiento RGPD (UE) 2016/679 &amp; LOPDGDD 3/2018</span>
+          <h3>Política de Privacidad y Protección de Datos</h3>
+          <p>
+            En <strong>Glowends Events</strong> nos tomamos muy en serio la confidencialidad y privacidad de vuestros datos personales.
+            Esta Política de Privacidad explica de forma clara y transparente cómo recopilamos, tratamos y protegemos la información personal
+            que nos facilitáis a través de nuestro sitio web y formulario de contacto.
+          </p>
+
+          <h4>1. Responsable del Tratamiento de los Datos</h4>
+          <ul>
+            <li><strong>Denominación comercial:</strong> Glowends Events</li>
+            <li><strong>Actividad:</strong> Wedding Planner &amp; Wedding Designer (Organización y diseño integral de bodas y eventos)</li>
+            <li><strong>Ámbito geográfico:</strong> Madrid · Extremadura · Destination Weddings</li>
+            <li><strong>Email de contacto y privacidad:</strong> <a href="mailto:infoglowends@gmail.com">infoglowends@gmail.com</a></li>
+          </ul>
+
+          <h4>2. Datos Personales que Recopilamos</h4>
+          <p>
+            A través de nuestro formulario de consulta de bodas, podemos solicitar y tratar los siguientes datos personales:
+          </p>
+          <ul>
+            <li><strong>Datos identificativos:</strong> Vuestros nombres o nombres de la pareja.</li>
+            <li><strong>Datos de contacto:</strong> Correo electrónico y número de teléfono de contacto.</li>
+            <li><strong>Datos relativos al evento:</strong> Fecha prevista de la boda o evento, lugar o localización de celebración, tipo de servicio solicitado (Wedding Planning, Wedding Design, Coordinación Día B) y detalles o preferencias que compartáis voluntariamente en el mensaje.</li>
+          </ul>
+
+          <h4>3. Finalidad del Tratamiento</h4>
+          <p>Tratamos la información que nos facilitáis con las siguientes finalidades exclusivas:</p>
+          <ul>
+            <li>Gestionar, atender y responder a vuestras consultas o peticiones de información enviadas a través del formulario o por correo electrónico.</li>
+            <li>Elaborar y remitir propuestas comerciales, presupuestos y dossieres de servicios personalizados para la organización y diseño de vuestra boda.</li>
+            <li>Mantener la comunicación necesaria durante la fase preparatoria y, en su caso, la formalización y ejecución del contrato de prestación de servicios.</li>
+          </ul>
+
+          <h4>4. Legitimación para el Tratamiento</h4>
+          <p>
+            La base jurídica que legitima el tratamiento de vuestros datos es vuestro <strong>consentimiento expreso</strong> e inequívoco
+            otorgado al marcar voluntariamente la casilla de aceptación de la Política de Privacidad antes del envío del formulario (Artículo 6.1.a del RGPD),
+            así como la aplicación de medidas precontractuales a petición vuestra (Artículo 6.1.b del RGPD).
+          </p>
+
+          <h4>5. Plazo de Conservación de los Datos</h4>
+          <p>
+            Los datos personales proporcionados se conservarán mientras dure la gestión de vuestra solicitud de información o presupuesto.
+            Si finalmente no se contrata el servicio, los datos serán eliminados o anonimizados transcurrido un plazo prudencial máximo de 12 meses,
+            salvo que solicitéis su supresión con anterioridad o exista una obligación legal de conservación.
+          </p>
+
+          <h4>6. Comunicación y Cesión de Datos a Terceros</h4>
+          <p>
+            <strong>Glowends Events no vende, alquila ni cede vuestros datos personales a terceros</strong> con fines publicitarios ni comerciales.
+            Únicamente podrán tener acceso a ellos los proveedores técnicos auxiliares estrictamente necesarios para el funcionamiento de la web
+            (alojamiento web, servicio de correo electrónico), todos ellos sujetos a rigurosos acuerdos de confidencialidad y cumplimiento del RGPD,
+            así como en los casos legalmente exigidos por las autoridades competentes.
+          </p>
+
+          <h4>7. Vuestros Derechos de Protección de Datos (Derechos ARSOPOL)</h4>
+          <p>Podéis ejercer en cualquier momento vuestros derechos reconocidos por la normativa:</p>
+          <ul>
+            <li><strong>Derecho de Acceso:</strong> Conocer qué datos vuestros estamos tratando.</li>
+            <li><strong>Derecho de Rectificación:</strong> Modificar datos inexactos o incompletos.</li>
+            <li><strong>Derecho de Supresión (Derecho al olvido):</strong> Solicitar la eliminación de vuestros datos cuando ya no sean necesarios.</li>
+            <li><strong>Derecho de Oposición:</strong> Oponeros a que sigamos tratando vuestros datos.</li>
+            <li><strong>Derecho a la Limitación del tratamiento:</strong> Solicitar que suspendamos temporalmente el tratamiento en los casos previstos por la ley.</li>
+            <li><strong>Derecho a la Portabilidad:</strong> Recibir vuestros datos en un formato estructurado y de lectura mecánica.</li>
+          </ul>
+          <p>
+            Para ejercer cualquiera de estos derechos, basta con enviar un email a <a href="mailto:infoglowends@gmail.com">infoglowends@gmail.com</a>
+            indicando en el asunto "Protección de Datos" y detallando vuestra solicitud.
+          </p>
+          <p>
+            Si consideráis que el tratamiento de vuestros datos infringe la normativa aplicable, tenéis derecho a presentar una reclamación ante la
+            <strong>Agencia Española de Protección de Datos (AEPD)</strong> en <a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">www.aepd.es</a>.
+          </p>
+        </article>
+
+        <!-- TAB 2: AVISO LEGAL -->
+        <article class="legal-tab-content" id="tabContent-notice" role="tabpanel" aria-labelledby="tabBtn-notice">
+          <span class="legal-badge">Ley 34/2002 (LSSI-CE)</span>
+          <h3>Aviso Legal y Condiciones de Uso</h3>
+          
+          <h4>1. Información General del Titular</h4>
+          <p>
+            En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE),
+            se informa de los datos identificativos del titular de este sitio web:
+          </p>
+          <ul>
+            <li><strong>Nombre comercial:</strong> Glowends Events</li>
+            <li><strong>Actividad:</strong> Organización y diseño de bodas y eventos (Wedding Planning &amp; Design)</li>
+            <li><strong>Área de servicio:</strong> Comunidad de Madrid, Extremadura y Destination Weddings</li>
+            <li><strong>Correo electrónico de contacto:</strong> <a href="mailto:infoglowends@gmail.com">infoglowends@gmail.com</a></li>
+          </ul>
+
+          <h4>2. Condiciones Generales de Uso</h4>
+          <p>
+            El acceso y navegación por este sitio web atribuye la condición de usuario e implica la aceptación plena de todas las disposiciones incluidas
+            en este Aviso Legal. El usuario se compromete a hacer un uso adecuado y lícito de los contenidos y servicios ofrecidos, absteniéndose de
+            actividades ilícitas o lesivas para los derechos de Glowends Events o de terceros.
+          </p>
+
+          <h4>3. Propiedad Intelectual e Industrial</h4>
+          <p>
+            Todos los elementos que forman parte de este sitio web —incluyendo diseño gráfico, código fuente, logotipos, imagotipos, marcas comerciales ("Glowends Events"),
+            textos, tipografías, ilustraciones y creaciones fotográficas— son titularidad exclusiva de Glowends Events o se dispone de la debida autorización
+            o licencia de sus autores legítimos.
+          </p>
+          <p>
+            Queda expresamente prohibida la reproducción, distribución, comunicación pública o transformación de cualquiera de estos elementos sin la
+            autorización previa y por escrito de Glowends Events.
+          </p>
+
+          <h4>4. Enlaces Externos</h4>
+          <p>
+            Este sitio web incluye enlaces a perfiles y servicios de terceros (como Instagram o Google Fonts). Glowends Events no asume responsabilidad
+            alguna sobre los contenidos, políticas de privacidad o prácticas de dichos sitios web externos.
+          </p>
+
+          <h4>5. Legislación y Fuero</h4>
+          <p>
+            Las presentes condiciones se rigen por la legislación española. Para cualquier controversia que pudiera derivarse del acceso o uso de este portal web,
+            las partes se someten a los Juzgados y Tribunales competentes con arreglo a la normativa de consumidores y usuarios.
+          </p>
+        </article>
+
+        <!-- TAB 3: POLÍTICA DE COOKIES -->
+        <article class="legal-tab-content" id="tabContent-cookies" role="tabpanel" aria-labelledby="tabBtn-cookies">
+          <span class="legal-badge">Directiva ePrivacy &amp; LSSI-CE</span>
+          <h3>Política de Cookies</h3>
+
+          <h4>1. ¿Qué son las Cookies?</h4>
+          <p>
+            Una cookie es un pequeño fichero de texto que los sitios web descargan en vuestro navegador cuando los visitáis.
+            Permiten a la web recordar vuestras preferencias, asegurar el funcionamiento técnico correcto y mejorar vuestra experiencia de navegación.
+          </p>
+
+          <h4>2. Cookies que Utiliza este Sitio Web</h4>
+          <ul>
+            <li>
+              <strong>Cookies Técnicas y Estrictamente Necesarias:</strong>
+              Son indispensables para que la página funcione correctamente (por ejemplo, para recordar vuestra aceptación o rechazo del aviso de cookies mediante <code>localStorage</code>
+              y evitar que vuelva a aparecer de forma intrusiva). No recaban datos personales con fines publicitarios.
+            </li>
+            <li>
+              <strong>Tipografías Web Externas (Google Fonts):</strong>
+              La web utiliza fuentes tipográficas de Google Fonts para garantizar la estética editorial. Google puede recopilar datos técnicos de conexión (como la dirección IP)
+              conforme a su propia política de privacidad.
+            </li>
+            <li>
+              <strong>Enlaces a Redes Sociales (Instagram):</strong>
+              Al hacer clic en los enlaces a nuestro perfil oficial de Instagram (<a href="https://www.instagram.com/glowends.events/" target="_blank" rel="noopener noreferrer">@glowends.events</a>),
+              la plataforma de Meta puede instalar sus propias cookies conforme a sus políticas particulares.
+            </li>
+          </ul>
+
+          <h4>3. Cómo Gestionar o Desactivar las Cookies en vuestro Navegador</h4>
+          <p>
+            Podéis permitir, bloquear o eliminar las cookies instaladas en vuestro dispositivo en cualquier momento mediante la configuración de las opciones de vuestro navegador:
+          </p>
+          <ul>
+            <li><strong>Google Chrome:</strong> Configuración &gt; Privacidad y seguridad &gt; Cookies y otros datos de sitios.</li>
+            <li><strong>Mozilla Firefox:</strong> Opciones &gt; Privacidad y seguridad &gt; Cookies y datos del sitio.</li>
+            <li><strong>Apple Safari:</strong> Preferencias &gt; Privacidad.</li>
+            <li><strong>Microsoft Edge:</strong> Configuración &gt; Cookies y permisos del sitio.</li>
+          </ul>
+        </article>
+
+      </div>
     </div>
   </div>
 
@@ -813,8 +1022,55 @@
       if (e.key === 'Escape') {
         closeLightbox();
         closeMobileNav();
+        closeLegalModal();
       }
     });
+
+    /* ---- Legal Modal (RGPD / Aviso Legal / Cookies) ---- */
+    const legalModal = document.getElementById('legalModal');
+    const legalModalCard = legalModal ? legalModal.querySelector('.legal-modal-card') : null;
+
+    if (legalModal) {
+      legalModal.addEventListener('click', (e) => {
+        if (e.target === legalModal) {
+          closeLegalModal();
+        }
+      });
+    }
+
+    function openLegalModal(tabName) {
+      if (!legalModal) return;
+      legalModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (tabName) {
+        switchLegalTab(tabName);
+      }
+    }
+
+    function closeLegalModal() {
+      if (!legalModal) return;
+      legalModal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function switchLegalTab(tabName) {
+      const tabs = ['privacy', 'notice', 'cookies'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tabBtn-${t}`);
+        const content = document.getElementById(`tabContent-${t}`);
+        if (btn && content) {
+          if (t === tabName) {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+            content.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+            content.classList.remove('active');
+          }
+        }
+      });
+    }
 
     /* ---- Keyboard accessibility for gallery ---- */
     document.querySelectorAll('.gallery-item').forEach(item => {
