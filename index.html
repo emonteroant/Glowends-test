@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 <body>
 
@@ -46,7 +46,12 @@
 
   <!-- ==================== HERO ==================== -->
   <section id="hero" aria-label="Portada principal">
-    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-video-wrap">
+      <video id="heroVideo" class="hero-video" autoplay loop muted playsinline poster="images/instagram/insta4.jpg" aria-label="Vídeo cinematográfico de portada Glowends Events">
+        <source src="videos/glowends-video.mp4" type="video/mp4" />
+        Tu navegador no soporta la reproducción de este vídeo.
+      </video>
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <img src="logo.png" alt="Glowends Events" class="hero-logo" />
@@ -64,6 +69,14 @@
       <div class="hero-scroll-line"></div>
       <span>Descubre</span>
     </div>
+    <button class="hero-sound-btn" id="heroSoundBtn" onclick="toggleHeroSound()" aria-label="Activar sonido" title="Activar/Silenciar sonido">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="23" y1="9" x2="17" y2="15"/>
+        <line x1="17" y1="9" x2="23" y2="15"/>
+      </svg>
+      <span class="hero-sound-label">Sonido</span>
+    </button>
   </section>
 
   <!-- ==================== MARQUEE ==================== -->
@@ -242,59 +255,6 @@
         </div>
       </article>
 
-    </div>
-  </section>
-
-  <!-- ==================== CINEMATIC SHOWCASE ==================== -->
-  <section id="cinematic" aria-labelledby="cinematic-title">
-    <div class="section-inner">
-      <div class="cinematic-header reveal">
-        <p class="section-label">Atmósfera &amp; Emoción</p>
-        <h2 id="cinematic-title" class="section-title">
-          Vivid cada latido,<br/><em>nosotras cuidamos el resto.</em>
-        </h2>
-        <div class="divider divider-center"></div>
-      </div>
-
-      <div class="cinematic-card reveal delay-1">
-        <div class="cinematic-video-wrap">
-          <video id="glowendsVideo" autoplay loop muted playsinline poster="images/instagram/insta4.jpg" aria-label="Vídeo cinematográfico de Glowends Events">
-            <source src="videos/glowends-video.mp4" type="video/mp4" />
-            Tu navegador no soporta la reproducción de este vídeo.
-          </video>
-
-          <div class="cinematic-overlay">
-            <div class="cinematic-top-bar">
-              <div class="cinematic-badge">
-                <span class="cinematic-badge-dot"></span>
-                <span>Cinematic Moments</span>
-              </div>
-              <div class="cinematic-controls">
-                <button class="cinematic-btn" id="videoSoundBtn" onclick="toggleVideoSound()" aria-label="Activar sonido" title="Activar/Silenciar sonido">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                    <line x1="23" y1="9" x2="17" y2="15"/>
-                    <line x1="17" y1="9" x2="23" y2="15"/>
-                  </svg>
-                </button>
-                <button class="cinematic-btn" id="videoPlayBtn" onclick="toggleVideoPlay()" aria-label="Pausar vídeo" title="Pausar / Reproducir">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <rect x="6" y="4" width="4" height="16" rx="1"/>
-                    <rect x="14" y="4" width="4" height="16" rx="1"/>
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="cinematic-bottom-bar">
-              <div class="cinematic-caption">
-                <p class="cinematic-caption-label">Momentos que permanecen</p>
-                <p class="cinematic-caption-title">La delicadeza de cada instante irrepetible</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -983,22 +943,12 @@
   <script>
     /* ---- Navbar scroll ---- */
     const nav = document.getElementById('mainNav');
-    const heroBg = document.getElementById('heroBg');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 60) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
-    }, { passive: true });
-
-    /* ---- Hero parallax + loaded state ---- */
-    window.addEventListener('load', () => {
-      heroBg.classList.add('loaded');
-    });
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      heroBg.style.transform = `scale(1) translateY(${scrollY * 0.35}px)`;
     }, { passive: true });
 
     /* ---- Mobile nav ---- */
@@ -1163,33 +1113,22 @@
       document.getElementById('cookieBanner').classList.remove('show');
     }
 
-    /* ---- Cinematic Video Controls ---- */
-    const glowendsVideo = document.getElementById('glowendsVideo');
-    const videoPlayBtn = document.getElementById('videoPlayBtn');
-    const videoSoundBtn = document.getElementById('videoSoundBtn');
+    /* ---- Hero Video Sound Controls ---- */
+    const heroVideo = document.getElementById('heroVideo');
+    const heroSoundBtn = document.getElementById('heroSoundBtn');
 
-    function toggleVideoPlay() {
-      if (!glowendsVideo) return;
-      if (glowendsVideo.paused) {
-        glowendsVideo.play();
-        videoPlayBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
-        videoPlayBtn.setAttribute('aria-label', 'Pausar vídeo');
+    function toggleHeroSound() {
+      if (!heroVideo || !heroSoundBtn) return;
+      heroVideo.muted = !heroVideo.muted;
+      const label = heroSoundBtn.querySelector('.hero-sound-label');
+      if (heroVideo.muted) {
+        heroSoundBtn.querySelector('svg').outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
+        if (label) label.textContent = 'Sonido';
+        heroSoundBtn.setAttribute('aria-label', 'Activar sonido');
       } else {
-        glowendsVideo.pause();
-        videoPlayBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
-        videoPlayBtn.setAttribute('aria-label', 'Reproducir vídeo');
-      }
-    }
-
-    function toggleVideoSound() {
-      if (!glowendsVideo) return;
-      glowendsVideo.muted = !glowendsVideo.muted;
-      if (glowendsVideo.muted) {
-        videoSoundBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
-        videoSoundBtn.setAttribute('aria-label', 'Activar sonido');
-      } else {
-        videoSoundBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
-        videoSoundBtn.setAttribute('aria-label', 'Silenciar sonido');
+        heroSoundBtn.querySelector('svg').outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+        if (label) label.textContent = 'Silenciar';
+        heroSoundBtn.setAttribute('aria-label', 'Silenciar sonido');
       }
     }
   </script>
