@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
 
@@ -25,6 +25,7 @@
     <ul class="nav-links" role="list">
       <li><a href="#about">Nosotros</a></li>
       <li><a href="#services">Servicios</a></li>
+      <li><a href="#invitations">Invitaciones</a></li>
       <li><a href="#gallery">Portfolio</a></li>
       <li><a href="#testimonials">Testimonios</a></li>
       <li><a href="#contact" class="nav-cta">Contacto</a></li>
@@ -39,6 +40,7 @@
     <button class="nav-mobile-close" id="mobileNavClose" aria-label="Cerrar menú">&times;</button>
     <a href="#about" onclick="closeMobileNav()">Nosotros</a>
     <a href="#services" onclick="closeMobileNav()">Servicios</a>
+    <a href="#invitations" onclick="closeMobileNav()">Invitaciones</a>
     <a href="#gallery" onclick="closeMobileNav()">Portfolio</a>
     <a href="#testimonials" onclick="closeMobileNav()">Testimonios</a>
     <a href="#contact" onclick="closeMobileNav()">Contacto</a>
@@ -327,6 +329,172 @@
           <p class="step-num">04</p>
           <h3 class="step-title">El gran día</h3>
           <p class="step-desc">Coordinamos cada momento in situ. Vosotros disfrutad: nosotras cuidamos de que todo sea perfecto.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PERSONALIZED INVITATIONS (ENVELOPE & VIDEO ATELIER) ==================== -->
+  <section id="invitations" aria-labelledby="invitations-title">
+    <div class="section-inner">
+      <div class="invitations-header reveal">
+        <p class="section-label">Atelier Digital · Experiencia Interactiva</p>
+        <h2 id="invitations-title" class="section-title">
+          Crea vuestra invitación<br/><em>en vídeo personalizado.</em>
+        </h2>
+        <div class="divider divider-center"></div>
+        <p class="invitations-subtitle">
+          Escribid vuestros nombres, la fecha y el lugar de vuestro enlace. Al romper el sello de lacre con el emblema de
+          <strong>Glowends Events</strong> y abrir el sobre, se creará automáticamente un vídeo cinematográfico con vuestra invitación.
+        </p>
+      </div>
+
+      <div class="invitation-atelier-grid">
+
+        <!-- Left Column: Customization Panel -->
+        <div class="invitation-controls-card reveal-left">
+          <div class="invitation-card-head">
+            <img src="logo.png" alt="Glowends Events" class="invitation-card-head-logo" />
+            <div>
+              <p class="invitation-card-head-sub">Personalización</p>
+              <h3 class="invitation-card-head-title">Datos de la Invitación</h3>
+            </div>
+          </div>
+
+          <div class="inv-form-row">
+            <div class="inv-field">
+              <label class="inv-label" for="invName1">Nombre 1 *</label>
+              <input class="inv-input" type="text" id="invName1" value="Lucía" placeholder="Ej. Lucía" maxlength="22" oninput="syncInvitationPreview()" />
+            </div>
+            <div class="inv-field">
+              <label class="inv-label" for="invName2">Nombre 2 *</label>
+              <input class="inv-input" type="text" id="invName2" value="Mateo" placeholder="Ej. Mateo" maxlength="22" oninput="syncInvitationPreview()" />
+            </div>
+          </div>
+
+          <div class="inv-form-row">
+            <div class="inv-field">
+              <label class="inv-label" for="invDate">Fecha del enlace</label>
+              <input class="inv-input" type="text" id="invDate" value="20 de Junio de 2026" placeholder="Ej. 20 de Junio de 2026" maxlength="32" oninput="syncInvitationPreview()" />
+            </div>
+            <div class="inv-field">
+              <label class="inv-label" for="invVenue">Lugar de celebración</label>
+              <input class="inv-input" type="text" id="invVenue" value="Finca El Olivar · Madrid" placeholder="Ej. Madrid · Extremadura" maxlength="38" oninput="syncInvitationPreview()" />
+            </div>
+          </div>
+
+          <div class="inv-field">
+            <label class="inv-label" for="invMessage">Mensaje de invitación</label>
+            <input class="inv-input" type="text" id="invMessage" value="Nos encantaría compartir con vosotros el día más feliz de nuestras vidas" placeholder="Escribe una frase especial..." maxlength="110" oninput="syncInvitationPreview()" />
+          </div>
+
+          <div class="inv-field">
+            <span class="inv-label">Acabado del sobre y vídeo</span>
+            <div class="inv-theme-options" role="radiogroup" aria-label="Tono del sobre">
+              <button type="button" class="inv-theme-btn active" data-theme-choice="blush" onclick="setInvitationTheme('blush', this)">
+                <span class="inv-swatch" style="background: #DDA3A9;"></span>
+                <span>Blush Rose</span>
+              </button>
+              <button type="button" class="inv-theme-btn" data-theme-choice="linen" onclick="setInvitationTheme('linen', this)">
+                <span class="inv-swatch" style="background: #EFE3D8;"></span>
+                <span>Lino Almendra</span>
+              </button>
+              <button type="button" class="inv-theme-btn" data-theme-choice="couture" onclick="setInvitationTheme('couture', this)">
+                <span class="inv-swatch" style="background: #C7B2A3;"></span>
+                <span>Cacao Dorado</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="inv-actions">
+            <button type="button" class="btn-open-envelope" id="btnTriggerEnvelope" onclick="triggerInvitationEnvelope()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <span id="btnTriggerEnvelopeText">Abrir Sobre y Crear Vídeo ✨</span>
+            </button>
+            <button type="button" class="btn-reset-envelope" id="btnResetEnvelope" onclick="resetInvitationEnvelope()">
+              <span>Cerrar sobre y volver a sellar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: 3D Envelope & Personalized Video Reveal -->
+        <div class="invitation-stage-wrap reveal-right">
+          <div class="envelope-instruction-pill" id="envelopeInstructionPill">
+            <span class="envelope-instruction-dot"></span>
+            <span id="envelopeInstructionText">Pulsa en el sello de Glowends para abrir el sobre</span>
+          </div>
+
+          <div class="envelope-3d-scene">
+            <div class="envelope-box" id="invitationEnvelopeBox" data-theme="blush" onclick="handleEnvelopeSceneClick(event)">
+
+              <!-- Back & Inner Liner -->
+              <div class="envelope-back">
+                <div class="envelope-liner"></div>
+              </div>
+
+              <!-- Inner Rising Card containing the Personalized Video Canvas -->
+              <div class="envelope-letter" id="invitationLetterCard">
+                <div class="letter-video-viewport">
+                  <canvas id="invVideoCanvas" width="960" height="540" aria-label="Vídeo de invitación de boda personalizada"></canvas>
+                </div>
+              </div>
+
+              <!-- Folded Front Pocket Flaps -->
+              <div class="envelope-front-pocket">
+                <div class="envelope-pocket-left"></div>
+                <div class="envelope-pocket-right"></div>
+                <div class="envelope-pocket-bottom"></div>
+              </div>
+
+              <!-- Calligraphy Preview on Closed Envelope -->
+              <div class="envelope-front-tag">
+                <p class="envelope-front-tag-names" id="envelopeFrontNames">Lucía &amp; Mateo</p>
+                <p class="envelope-front-tag-sub" id="envelopeFrontDate">20 de Junio de 2026</p>
+              </div>
+
+              <!-- Top Hinged Flap -->
+              <div class="envelope-flap-top"></div>
+
+              <!-- Wax Seal with Glowends Events Logo -->
+              <button type="button" class="envelope-wax-seal" id="envelopeWaxSealBtn" aria-label="Sello de lacre Glowends Events - Abrir sobre y generar vídeo" title="Haz clic para abrir el sobre">
+                <span class="wax-seal-rim">
+                  <img src="logo.png" alt="Logo Glowends Events en el sello" class="wax-seal-logo" />
+                  <span class="wax-seal-brand">Glowends</span>
+                </span>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Video Controls & Download Toolbar (Appears when Envelope Opens) -->
+          <div class="invitation-video-toolbar" id="invVideoToolbar" aria-live="polite">
+            <div class="inv-video-status">
+              <span class="inv-status-indicator recording" id="invStatusDot"></span>
+              <span id="invStatusLabel">Creando vídeo con vuestros nombres...</span>
+            </div>
+            <div class="inv-toolbar-btns">
+              <button type="button" class="inv-tool-btn" onclick="replayInvitationVideo()" title="Volver a reproducir animación del vídeo">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="1 4 1 10 7 10"/>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+                <span>Repetir</span>
+              </button>
+              <button type="button" class="inv-tool-btn primary" id="btnDownloadInvVideo" onclick="downloadInvitationVideo()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span id="btnDownloadInvText">Descargar Vídeo</span>
+              </button>
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -700,6 +868,7 @@
           <ul>
             <li><a href="#about">Sobre nosotras</a></li>
             <li><a href="#process">Nuestro proceso</a></li>
+            <li><a href="#invitations">Invitaciones en vídeo</a></li>
             <li><a href="#gallery">Portfolio</a></li>
             <li><a href="#testimonials">Testimonios</a></li>
           </ul>
@@ -1131,6 +1300,551 @@
         heroSoundBtn.setAttribute('aria-label', 'Silenciar sonido');
       }
     }
+
+    /* ==========================================================================
+       PERSONALIZED WEDDING INVITATION ENVELOPE & VIDEO GENERATOR
+       ========================================================================== */
+    const invEnvelopeBox = document.getElementById('invitationEnvelopeBox');
+    const invCanvas = document.getElementById('invVideoCanvas');
+    const invCtx = invCanvas ? invCanvas.getContext('2d') : null;
+    const invToolbar = document.getElementById('invVideoToolbar');
+    const invStatusDot = document.getElementById('invStatusDot');
+    const invStatusLabel = document.getElementById('invStatusLabel');
+    const btnTriggerEnvelopeText = document.getElementById('btnTriggerEnvelopeText');
+    const btnResetEnvelope = document.getElementById('btnResetEnvelope');
+    const envelopeInstructionText = document.getElementById('envelopeInstructionText');
+
+    let invCurrentTheme = 'blush';
+    let invAnimFrameId = null;
+    let invAnimStartTime = 0;
+    let invIsEnvelopeOpen = false;
+    let invRecordedBlobUrl = null;
+    let invMediaRecorder = null;
+    let invRecordedChunks = [];
+
+    // Load Glowends Logo for Canvas Video
+    const invLogoImg = new Image();
+    invLogoImg.src = 'logo.png';
+
+    // Theme palettes for the generated video
+    const INV_THEMES = {
+      blush: {
+        bgTop: '#FCF5F3',
+        bgMid: '#F7E7E5',
+        bgBottom: '#EFE0DC',
+        veil: 'rgba(251, 242, 240, 0.76)',
+        accent: '#A85A63',
+        accentSoft: '#DDA3A9',
+        border: '#D7B2B5',
+        textDark: '#1A1413',
+        textMuted: '#524442',
+        particle: 'rgba(205, 135, 145, 0.42)',
+        gold: 'rgba(196, 154, 120, 0.55)'
+      },
+      linen: {
+        bgTop: '#FDFBF7',
+        bgMid: '#F5EDE2',
+        bgBottom: '#EAE0D2',
+        veil: 'rgba(251, 246, 239, 0.78)',
+        accent: '#8E584F',
+        accentSoft: '#C9A99A',
+        border: '#D1C0AE',
+        textDark: '#1A1413',
+        textMuted: '#524442',
+        particle: 'rgba(190, 155, 125, 0.42)',
+        gold: 'rgba(188, 148, 104, 0.55)'
+      },
+      couture: {
+        bgTop: '#F9F3EE',
+        bgMid: '#EDE1D7',
+        bgBottom: '#DFCFC2',
+        veil: 'rgba(245, 236, 228, 0.77)',
+        accent: '#7A4248',
+        accentSoft: '#B9858A',
+        border: '#C2AB9B',
+        textDark: '#1A1413',
+        textMuted: '#4E3E3B',
+        particle: 'rgba(175, 125, 115, 0.44)',
+        gold: 'rgba(182, 138, 92, 0.6)'
+      }
+    };
+
+    // Floating particles for the personalized video
+    const invParticles = Array.from({ length: 38 }, (_, i) => ({
+      x: (i * 97) % 960,
+      y: (i * 73) % 540,
+      r: 1.6 + (i % 5) * 1.1,
+      vx: -0.18 + (i % 7) * 0.06,
+      vy: -0.25 - (i % 5) * 0.1,
+      phase: i * 0.45,
+      isGold: i % 2 === 0
+    }));
+
+    function getInvitationData() {
+      const n1 = (document.getElementById('invName1')?.value || '').trim() || 'Lucía';
+      const n2 = (document.getElementById('invName2')?.value || '').trim() || 'Mateo';
+      const date = (document.getElementById('invDate')?.value || '').trim() || '20 de Junio de 2026';
+      const venue = (document.getElementById('invVenue')?.value || '').trim() || 'Finca El Olivar · Madrid';
+      const message = (document.getElementById('invMessage')?.value || '').trim() || 'Nos encantaría compartir con vosotros el día más feliz de nuestras vidas';
+      return { n1, n2, date, venue, message };
+    }
+
+    function syncInvitationPreview() {
+      const { n1, n2, date } = getInvitationData();
+      const frontNames = document.getElementById('envelopeFrontNames');
+      const frontDate = document.getElementById('envelopeFrontDate');
+      if (frontNames) frontNames.textContent = `${n1} & ${n2}`;
+      if (frontDate) frontDate.textContent = date;
+      if (!invIsEnvelopeOpen) {
+        drawInvitationVideoFrame(2.5);
+      }
+    }
+
+    function setInvitationTheme(themeKey, btnEl) {
+      invCurrentTheme = themeKey;
+      if (invEnvelopeBox) {
+        invEnvelopeBox.setAttribute('data-theme', themeKey);
+      }
+      document.querySelectorAll('.inv-theme-btn').forEach(b => b.classList.remove('active'));
+      if (btnEl) btnEl.classList.add('active');
+      if (!invIsEnvelopeOpen) {
+        drawInvitationVideoFrame(2.5);
+      }
+    }
+
+    function handleEnvelopeSceneClick(e) {
+      if (!invIsEnvelopeOpen) {
+        triggerInvitationEnvelope();
+      }
+    }
+
+    function easeOutCubic(x) {
+      return 1 - Math.pow(1 - Math.max(0, Math.min(1, x)), 3);
+    }
+
+    function wrapCanvasText(ctx, text, maxWidth) {
+      const words = text.split(' ');
+      const lines = [];
+      let current = '';
+      for (let i = 0; i < words.length; i++) {
+        const testLine = current ? current + ' ' + words[i] : words[i];
+        if (ctx.measureText(testLine).width > maxWidth && current) {
+          lines.push(current);
+          current = words[i];
+        } else {
+          current = testLine;
+        }
+      }
+      if (current) lines.push(current);
+      return lines.slice(0, 2);
+    }
+
+    function drawCornerFlourish(ctx, x, y, sx, sy, color) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(sx, sy);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1.25;
+      ctx.beginPath();
+      ctx.moveTo(0, 26);
+      ctx.lineTo(0, 0);
+      ctx.lineTo(26, 0);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(6, 6, 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawInvitationVideoFrame(elapsedSec) {
+      if (!invCtx || !invCanvas) return;
+      const ctx = invCtx;
+      const W = invCanvas.width;
+      const H = invCanvas.height;
+      const pal = INV_THEMES[invCurrentTheme] || INV_THEMES.blush;
+      const { n1, n2, date, venue, message } = getInvitationData();
+
+      ctx.clearRect(0, 0, W, H);
+
+      // 1. Base Romantic Gradient Background
+      const bgGrad = ctx.createLinearGradient(0, 0, W, H);
+      bgGrad.addColorStop(0, pal.bgTop);
+      bgGrad.addColorStop(0.5, pal.bgMid);
+      bgGrad.addColorStop(1, pal.bgBottom);
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 2. Blend subtle real wedding video footage in the background if available
+      if (heroVideo && heroVideo.readyState >= 2) {
+        try {
+          ctx.save();
+          ctx.globalAlpha = 0.24;
+          const zoom = 1 + Math.sin(elapsedSec * 0.35) * 0.03;
+          const dw = W * zoom;
+          const dh = H * zoom;
+          ctx.drawImage(heroVideo, (W - dw) / 2, (H - dh) / 2, dw, dh);
+          ctx.restore();
+        } catch (err) {
+          // Ignore cross-origin draw fallback
+        }
+      }
+
+      // 3. Soft Luminous Radial Glow
+      const radGrad = ctx.createRadialGradient(W / 2, H / 2, 40, W / 2, H / 2, W * 0.6);
+      radGrad.addColorStop(0, 'rgba(255, 255, 255, 0.86)');
+      radGrad.addColorStop(0.65, pal.veil);
+      radGrad.addColorStop(1, 'rgba(245, 232, 228, 0.88)');
+      ctx.fillStyle = radGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 4. Floating Golden & Blush Bokeh Dust Particles
+      invParticles.forEach(p => {
+        const px = (p.x + p.vx * elapsedSec * 60 + W) % W;
+        const py = (p.y + p.vy * elapsedSec * 60 + H * 10) % H;
+        const alpha = 0.35 + 0.35 * Math.sin(elapsedSec * 2 + p.phase);
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.beginPath();
+        ctx.arc(px, py, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.isGold ? pal.gold : pal.particle;
+        ctx.fill();
+        ctx.restore();
+      });
+
+      // 5. Editorial Double Passepartout Frame
+      const frameProgress = easeOutCubic(elapsedSec / 0.9);
+      ctx.save();
+      ctx.globalAlpha = frameProgress;
+      ctx.strokeStyle = pal.border;
+      ctx.lineWidth = 1.4;
+      ctx.strokeRect(28, 28, W - 56, H - 56);
+      ctx.strokeStyle = pal.accentSoft;
+      ctx.lineWidth = 0.8;
+      ctx.strokeRect(36, 36, W - 72, H - 72);
+
+      // Corner ornaments
+      drawCornerFlourish(ctx, 44, 44, 1, 1, pal.accent);
+      drawCornerFlourish(ctx, W - 44, 44, -1, 1, pal.accent);
+      drawCornerFlourish(ctx, 44, H - 44, 1, -1, pal.accent);
+      drawCornerFlourish(ctx, W - 44, H - 44, -1, -1, pal.accent);
+      ctx.restore();
+
+      // 6. Top Emblem: Glowends Events Logo & Seal Motif
+      const logoAlpha = easeOutCubic((elapsedSec - 0.15) / 0.75);
+      if (logoAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = logoAlpha;
+        const logoY = 58 + (1 - logoAlpha) * 12;
+        if (invLogoImg && invLogoImg.complete && invLogoImg.naturalWidth > 0) {
+          try {
+            ctx.drawImage(invLogoImg, W / 2 - 25, logoY, 50, 50);
+          } catch (e) {}
+        }
+        ctx.restore();
+      }
+
+      // 7. Eyebrow: "¡NOS CASAMOS! · INVITACIÓN DE BODA"
+      const eyebrowAlpha = easeOutCubic((elapsedSec - 0.5) / 0.8);
+      if (eyebrowAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = eyebrowAlpha;
+        const eyY = 132 + (1 - eyebrowAlpha) * 14;
+        ctx.font = '600 11px "Montserrat", sans-serif';
+        ctx.fillStyle = pal.accent;
+        ctx.textAlign = 'center';
+        ctx.fillText('✦   ¡ N O S   C A S A M O S !   ·   S A V E   T H E   D A T E   ✦', W / 2, eyY);
+        ctx.restore();
+      }
+
+      // 8. Couple's Personalized Names (Hero Title in Video)
+      const namesAlpha = easeOutCubic((elapsedSec - 0.95) / 1.05);
+      if (namesAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = namesAlpha;
+        const namesY = 232 + (1 - namesAlpha) * 22;
+        const fullNames = `${n1}  &  ${n2}`;
+
+        // Auto-fit font size for long names
+        let fontSize = 74;
+        ctx.font = `italic 400 ${fontSize}px "Cormorant Garamond", Georgia, serif`;
+        while (ctx.measureText(fullNames).width > W - 150 && fontSize > 40) {
+          fontSize -= 2;
+          ctx.font = `italic 400 ${fontSize}px "Cormorant Garamond", Georgia, serif`;
+        }
+
+        ctx.fillStyle = pal.textDark;
+        ctx.textAlign = 'center';
+        ctx.shadowColor = 'rgba(168, 90, 99, 0.14)';
+        ctx.shadowBlur = 16;
+        ctx.fillText(fullNames, W / 2, namesY);
+        ctx.shadowBlur = 0;
+
+        // Animated Ornamental Divider under names
+        const lineHalf = 115 * namesAlpha;
+        ctx.strokeStyle = pal.accent;
+        ctx.lineWidth = 1.1;
+        ctx.beginPath();
+        ctx.moveTo(W / 2 - lineHalf, namesY + 26);
+        ctx.lineTo(W / 2 - 14, namesY + 26);
+        ctx.moveTo(W / 2 + 14, namesY + 26);
+        ctx.lineTo(W / 2 + lineHalf, namesY + 26);
+        ctx.stroke();
+
+        // Center diamond star
+        ctx.font = '14px Georgia, serif';
+        ctx.fillStyle = pal.accent;
+        ctx.fillText('✦', W / 2, namesY + 31);
+        ctx.restore();
+      }
+
+      // 9. Personalized Dedication Message
+      const msgAlpha = easeOutCubic((elapsedSec - 1.65) / 0.9);
+      if (msgAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = msgAlpha;
+        const msgBaseY = 308 + (1 - msgAlpha) * 16;
+        ctx.font = 'italic 400 22px "Cormorant Garamond", Georgia, serif';
+        ctx.fillStyle = pal.textMuted;
+        ctx.textAlign = 'center';
+        const lines = wrapCanvasText(ctx, `"${message}"`, W - 210);
+        lines.forEach((line, idx) => {
+          ctx.fillText(line, W / 2, msgBaseY + idx * 28);
+        });
+        ctx.restore();
+      }
+
+      // 10. Date & Venue Pill Box
+      const dateAlpha = easeOutCubic((elapsedSec - 2.2) / 0.9);
+      if (dateAlpha > 0) {
+        ctx.save();
+        ctx.globalAlpha = dateAlpha;
+        const boxY = 398 + (1 - dateAlpha) * 16;
+
+        // Date Pill
+        ctx.font = '600 15px "Montserrat", sans-serif';
+        ctx.fillStyle = pal.textDark;
+        ctx.textAlign = 'center';
+        const spacedDate = date.toUpperCase().split('').join(' ');
+        ctx.fillText(spacedDate, W / 2, boxY);
+
+        // Venue below date
+        ctx.font = '500 13px "Montserrat", sans-serif';
+        ctx.fillStyle = pal.accent;
+        ctx.fillText(venue, W / 2, boxY + 28);
+
+        // Glowends signature footer inside video
+        ctx.font = '600 9.5px "Montserrat", sans-serif';
+        ctx.fillStyle = pal.textMuted;
+        ctx.fillText('G L O W E N D S   E V E N T S   ·   D E S I G N I N G   M E A N I N G F U L   M O M E N T S', W / 2, H - 52);
+        ctx.restore();
+      }
+    }
+
+    function runInvitationVideoLoop(timestamp) {
+      if (!invAnimStartTime) invAnimStartTime = timestamp;
+      const elapsedSec = (timestamp - invAnimStartTime) / 1000;
+      drawInvitationVideoFrame(elapsedSec);
+      if (invIsEnvelopeOpen) {
+        invAnimFrameId = requestAnimationFrame(runInvitationVideoLoop);
+      }
+    }
+
+    function startRecordingInvitationVideo() {
+      if (!invCanvas || typeof MediaRecorder === 'undefined') {
+        markVideoReadyState();
+        return;
+      }
+      try {
+        if (invMediaRecorder && invMediaRecorder.state === 'recording') {
+          invMediaRecorder.stop();
+        }
+        const stream = invCanvas.captureStream(30);
+        const mimeTypes = [
+          'video/webm;codecs=vp9',
+          'video/webm;codecs=vp8',
+          'video/webm',
+          'video/mp4'
+        ];
+        let selectedMime = '';
+        for (const m of mimeTypes) {
+          if (MediaRecorder.isTypeSupported(m)) {
+            selectedMime = m;
+            break;
+          }
+        }
+        invRecordedChunks = [];
+        invMediaRecorder = selectedMime
+          ? new MediaRecorder(stream, { mimeType: selectedMime, videoBitsPerSecond: 3500000 })
+          : new MediaRecorder(stream);
+
+        invMediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) {
+            invRecordedChunks.push(e.data);
+          }
+        };
+
+        invMediaRecorder.onstop = () => {
+          if (invRecordedChunks.length > 0) {
+            const blob = new Blob(invRecordedChunks, { type: selectedMime || 'video/webm' });
+            if (invRecordedBlobUrl) URL.revokeObjectURL(invRecordedBlobUrl);
+            invRecordedBlobUrl = URL.createObjectURL(blob);
+          }
+          markVideoReadyState();
+        };
+
+        if (invStatusDot) {
+          invStatusDot.className = 'inv-status-indicator recording';
+        }
+        if (invStatusLabel) {
+          const { n1, n2 } = getInvitationData();
+          invStatusLabel.textContent = `Creando vídeo para ${n1} & ${n2}...`;
+        }
+
+        invMediaRecorder.start(200);
+        setTimeout(() => {
+          if (invMediaRecorder && invMediaRecorder.state === 'recording') {
+            invMediaRecorder.stop();
+          }
+        }, 5200);
+      } catch (err) {
+        markVideoReadyState();
+      }
+    }
+
+    function markVideoReadyState() {
+      const { n1, n2 } = getInvitationData();
+      if (invStatusDot) {
+        invStatusDot.className = 'inv-status-indicator ready';
+      }
+      if (invStatusLabel) {
+        invStatusLabel.textContent = `✓ Vídeo personalizado de ${n1} & ${n2} listo`;
+      }
+    }
+
+    function triggerInvitationEnvelope() {
+      if (!invEnvelopeBox) return;
+      const { n1, n2 } = getInvitationData();
+
+      if (invIsEnvelopeOpen) {
+        // Re-close briefly and re-open with fresh video generation
+        resetInvitationEnvelope();
+        setTimeout(() => {
+          openEnvelopeAndGenerateVideo();
+        }, 420);
+      } else {
+        openEnvelopeAndGenerateVideo();
+      }
+    }
+
+    function openEnvelopeAndGenerateVideo() {
+      const { n1, n2 } = getInvitationData();
+      invIsEnvelopeOpen = true;
+      invEnvelopeBox.classList.add('is-open');
+
+      if (envelopeInstructionText) {
+        envelopeInstructionText.textContent = `Invitación en vídeo · ${n1} & ${n2}`;
+      }
+      if (btnTriggerEnvelopeText) {
+        btnTriggerEnvelopeText.textContent = 'Actualizar y Recrear Vídeo ✨';
+      }
+      if (btnResetEnvelope) {
+        btnResetEnvelope.classList.add('visible');
+      }
+      if (invToolbar) {
+        invToolbar.classList.add('active');
+      }
+
+      if (invAnimFrameId) cancelAnimationFrame(invAnimFrameId);
+      invAnimStartTime = 0;
+      invAnimFrameId = requestAnimationFrame(runInvitationVideoLoop);
+
+      // Start recording the personalized video stream as the card emerges
+      setTimeout(() => {
+        if (invIsEnvelopeOpen) {
+          startRecordingInvitationVideo();
+        }
+      }, 450);
+    }
+
+    function replayInvitationVideo() {
+      if (!invIsEnvelopeOpen) {
+        openEnvelopeAndGenerateVideo();
+        return;
+      }
+      invAnimStartTime = 0;
+      startRecordingInvitationVideo();
+    }
+
+    function resetInvitationEnvelope() {
+      invIsEnvelopeOpen = false;
+      if (invEnvelopeBox) {
+        invEnvelopeBox.classList.remove('is-open');
+      }
+      if (invAnimFrameId) {
+        cancelAnimationFrame(invAnimFrameId);
+        invAnimFrameId = null;
+      }
+      if (invMediaRecorder && invMediaRecorder.state === 'recording') {
+        try { invMediaRecorder.stop(); } catch (e) {}
+      }
+      if (invToolbar) {
+        invToolbar.classList.remove('active');
+      }
+      if (btnResetEnvelope) {
+        btnResetEnvelope.classList.remove('visible');
+      }
+      if (btnTriggerEnvelopeText) {
+        btnTriggerEnvelopeText.textContent = 'Abrir Sobre y Crear Vídeo ✨';
+      }
+      if (envelopeInstructionText) {
+        envelopeInstructionText.textContent = 'Pulsa en el sello de Glowends para abrir el sobre';
+      }
+      syncInvitationPreview();
+    }
+
+    function downloadInvitationVideo() {
+      const { n1, n2 } = getInvitationData();
+      const safeNames = `${n1}-y-${n2}`.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]/g, '-');
+
+      if (invMediaRecorder && invMediaRecorder.state === 'recording') {
+        invMediaRecorder.onstop = () => {
+          if (invRecordedChunks.length > 0) {
+            const blob = new Blob(invRecordedChunks, { type: invMediaRecorder.mimeType || 'video/webm' });
+            if (invRecordedBlobUrl) URL.revokeObjectURL(invRecordedBlobUrl);
+            invRecordedBlobUrl = URL.createObjectURL(blob);
+          }
+          markVideoReadyState();
+          triggerVideoFileDownload(safeNames);
+        };
+        invMediaRecorder.stop();
+        return;
+      }
+
+      if (invRecordedBlobUrl) {
+        triggerVideoFileDownload(safeNames);
+      } else {
+        startRecordingInvitationVideo();
+      }
+    }
+
+    function triggerVideoFileDownload(safeNames) {
+      if (!invRecordedBlobUrl) return;
+      const a = document.createElement('a');
+      a.href = invRecordedBlobUrl;
+      a.download = `Invitacion-Boda-${safeNames}-Glowends.webm`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // Initialize initial preview frame on load
+    window.addEventListener('load', () => {
+      syncInvitationPreview();
+    });
+    invLogoImg.onload = () => {
+      if (!invIsEnvelopeOpen) drawInvitationVideoFrame(2.5);
+    };
   </script>
 
 </body>
