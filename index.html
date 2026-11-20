@@ -600,6 +600,10 @@
             <button type="submit" class="form-submit" aria-label="Enviar formulario de contacto">
               <span>Enviar mensaje ✨</span>
             </button>
+            <div id="formFeedback" class="form-feedback" style="display:none;" role="alert"></div>
+            <p class="form-alt-link">
+              ¿Prefieres escribirnos directamente? <a href="mailto:infoglowends@gmail.com?subject=Consulta%20Boda%20Glowends">infoglowends@gmail.com</a>
+            </p>
             <div class="form-gdpr-info">
               <p>Información básica sobre protección de datos (RGPD):</p>
               <ul>
@@ -1085,6 +1089,14 @@
 
     /* ---- Contact form ---- */
     const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/infoglowends@gmail.com';
+    const formFeedback = document.getElementById('formFeedback');
+
+    function showFeedback(type, html) {
+      if (!formFeedback) return;
+      formFeedback.className = 'form-feedback is-' + type;
+      formFeedback.innerHTML = html;
+      formFeedback.style.display = 'block';
+    }
 
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -1129,19 +1141,30 @@
           body: JSON.stringify(payload)
         });
         const data = await res.json().catch(() => ({}));
+
+        // FormSubmit requires email activation on the very first submission
+        if (data && typeof data.message === 'string' && data.message.toLowerCase().includes('activation')) {
+          showFeedback('warning', '📬 <strong>¡Activación requerida para recibir los correos!</strong><br/>FormSubmit ha enviado un enlace de confirmación a <code>infoglowends@gmail.com</code>.<br/><strong>Por favor:</strong> Revisa tu carpeta de <strong>Spam / Correo no deseado</strong> o la pestaña <strong>Promociones</strong> en Gmail, abre el email de <em>FormSubmit</em> y haz clic en <strong>"Activate Form"</strong>.<br/>Una vez activado (solo se hace una vez), todos los mensajes se entregarán de forma instantánea en tu bandeja de entrada.');
+          btn.textContent = 'Pendiente de activación · Revisa Spam 📩';
+          return;
+        }
+
         if (!res.ok || data.success === 'false' || data.success === false) {
           throw new Error(data.message || 'Error de envío');
         }
+
+        showFeedback('success', '✨ <strong>¡Mensaje enviado con éxito!</strong> Hemos recibido vuestra consulta y os responderemos muy pronto a vuestro correo.');
         btn.textContent = '¡Mensaje enviado! Os contactamos pronto 💌';
         form.reset();
       } catch (err) {
         console.error('Contact form error:', err);
-        btn.textContent = 'No se pudo enviar. Escribidnos a infoglowends@gmail.com';
+        showFeedback('error', '⚠️ No se pudo enviar automáticamente en este momento. Por favor, escribidnos directamente a <a href="mailto:infoglowends@gmail.com">infoglowends@gmail.com</a>.');
+        btn.textContent = 'Error al enviar · Escribidnos por email';
       } finally {
         setTimeout(() => {
           btn.textContent = 'Enviar mensaje ✨';
           submitBtn.disabled = false;
-        }, 5000);
+        }, 8000);
       }
     });
 
