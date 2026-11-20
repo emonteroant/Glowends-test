@@ -590,6 +590,7 @@
               <label class="form-label" for="message">Contadnos vuestra historia *</label>
               <textarea class="form-textarea" id="message" name="message" placeholder="¿Cómo imagináis vuestro día ideal? ¿Cuántos invitados? ¿Qué ambiente soñáis? ✨" required aria-required="true"></textarea>
             </div>
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" />
             <div class="form-group form-checkbox-group">
               <label class="form-checkbox-label">
                 <input type="checkbox" id="privacy-consent" name="privacy_consent" required aria-required="true" />
@@ -1083,15 +1084,65 @@
     });
 
     /* ---- Contact form ---- */
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    const CONTACT_ENDPOINT = 'https://formsubmit.co/ajax/infoglowends@gmail.com';
+
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const btn = this.querySelector('.form-submit span');
+      const form = this;
+      const submitBtn = form.querySelector('.form-submit');
+      const btn = form.querySelector('.form-submit span');
+
+      // Native validation (form has novalidate)
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Honeypot anti-spam: bots fill this hidden field
+      if (form.querySelector('[name="_honey"]')?.value) return;
+
+      const serviceSelect = form.querySelector('#service');
+      const serviceLabel = serviceSelect.options[serviceSelect.selectedIndex]?.text || '';
+
+      const payload = {
+        'Nombres': form.querySelector('#name').value.trim(),
+        'Email': form.querySelector('#email').value.trim(),
+        'Teléfono': form.querySelector('#phone').value.trim() || '—',
+        'Fecha aproximada': form.querySelector('#date').value || '—',
+        'Servicio de interés': serviceLabel,
+        'Lugar de celebración': form.querySelector('#location').value.trim() || '—',
+        'Mensaje': form.querySelector('#message').value.trim(),
+        'Consentimiento RGPD': 'Aceptada la Política de Privacidad',
+        _subject: 'Nueva consulta de boda desde la web de Glowends Events',
+        _replyto: form.querySelector('#email').value.trim(),
+        _template: 'table',
+        _captcha: 'false'
+      };
+
+      submitBtn.disabled = true;
       btn.textContent = 'Enviando...';
-      setTimeout(() => {
+
+      try {
+        const res = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || data.success === 'false' || data.success === false) {
+          throw new Error(data.message || 'Error de envío');
+        }
         btn.textContent = '¡Mensaje enviado! Os contactamos pronto 💌';
-        this.reset();
-        setTimeout(() => { btn.textContent = 'Enviar mensaje ✨'; }, 4000);
-      }, 1500);
+        form.reset();
+      } catch (err) {
+        console.error('Contact form error:', err);
+        btn.textContent = 'No se pudo enviar. Escribidnos a infoglowends@gmail.com';
+      } finally {
+        setTimeout(() => {
+          btn.textContent = 'Enviar mensaje ✨';
+          submitBtn.disabled = false;
+        }, 5000);
+      }
     });
 
     /* ---- Cookie banner ---- */
